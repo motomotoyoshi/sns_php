@@ -30,13 +30,27 @@
         if ($this->hasError()) {
          return; 
         } else {
-        // create user
+          try {
+            $userModel = new \MyApp\Model\User();
+            $userModel->create([
+              'email' => $_POST['email'],
+              'password' => $_POST['password']
+            ]);
+          } catch (\MyApp\Exception\DuplicateEmail $e) {
+            $this->setErrors('email', $e->getMessage());
+            return;
+          }
 
-        // redirect to login
+        header('Location: ' . SITE_URL . '/login.php');
+        exit;
         }
       }
 
       private function _validate() {
+        if (!isset($_POST['token']) || $_POST['token'] !== $_SESSION['token']) {
+          echo "Invalid Token!";
+          exit;
+        }
         if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
           throw new \MyApp\Exception\InvalidEmail();
         }
