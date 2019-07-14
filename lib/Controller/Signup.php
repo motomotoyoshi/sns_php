@@ -20,18 +20,20 @@
         try {
           $this->_validate();
         } catch (\MyApp\Exception\InvalidEmail $e) {
-          echo $e->getMessage();
-          exit;
+          $this->setErrors('email', $e->getMessage());
         } catch (\MyApp\Exception\InvalidPassword $e) {
-          echo $e->getMessage();
-          exit;
+          $this->setErrors('password', $e->getMessage());
         }
 
-          echo "success";
-          exit;
+        $this->setValues('email', $_POST['email']);
+
+        if ($this->hasError()) {
+         return; 
+        } else {
         // create user
 
         // redirect to login
+        }
       }
 
       private function _validate() {
