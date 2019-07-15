@@ -3,5 +3,5 @@
   namespace MyApp\Exception;
 
   class DuplicateEmail extends \Exception {
-    protected $message = 'DuplicateEmail Email';
+    protected $message = 'DuplicateEmail';
   }
