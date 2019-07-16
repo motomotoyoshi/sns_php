@@ -29,7 +29,7 @@
         } else {
           try {
             $userModel = new \MyApp\Model\User();
-            $userModel->login([
+            $user = $userModel->login([
               'email' => $_POST['email'],
               'password' => $_POST['password']
             ]);
@@ -39,6 +39,8 @@
           }
 
           // login
+          session_regenerate_id(true);
+          $_SESSION['me'] = $user;
 
         header('Location: ' . SITE_URL);
         exit;
