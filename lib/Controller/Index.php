@@ -11,6 +11,7 @@
         }
 
       // get users info
-
+        $userModel = new \MyApp\Model\User();
+        $this->setValues('users', $userModel->findAll());
       }
   }
